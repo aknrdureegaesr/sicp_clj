@@ -1,0 +1,2 @@
+Je nach Wert von b
+wird eine anderer Funktion, nämlich + oder - eingesetzt.

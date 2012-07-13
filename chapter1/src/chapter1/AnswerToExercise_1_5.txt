@@ -1,0 +1,15 @@
+applicative-order:
+
+(test 0 (p))
+
+Versucht (p) zu evaluieren, was wieder auf (p) hinausläuft -
+Endlosschleife.
+
+
+normal-order:
+
+(test 0 (p))
+(if (= 0 0) 0 (p))
+(if true 0 (p))
+0
+
