@@ -19,20 +19,20 @@ public class TestAnswerToExercise1_3 {
 	public void test1() throws Exception {
 		Var ex1_3 = RT.var("chapter1.Answers", "ex1_3");
 		Object result = ex1_3.invoke(1, 2, 3);
-		assertEquals((Integer) 13, result);
+		assertEquals(13L, result);
 	}
 
 	@Test
 	public void test2() throws Exception {
 		Var ex1_3 = RT.var("chapter1.Answers", "ex1_3");
 		Object result = ex1_3.invoke(2, 3, 1);
-		assertEquals((Integer) 13, result);
+		assertEquals(13L, result);
 	}
 
 	@Test
 	public void test3() throws Exception {
 		Var ex1_3 = RT.var("chapter1.Answers", "ex1_3");
 		Object result = ex1_3.invoke(3, 1, 2);
-		assertEquals((Integer) 13, result);
+		assertEquals(13L, result);
 	}
 }
