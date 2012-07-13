@@ -1,6 +1,6 @@
 package chapter1.sqrt;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,18 +21,6 @@ import clojure.lang.Var;
  */
 @RunWith(Parameterized.class)
 public class SqrtPrecisionTests {
-
-	/**
-	 * The smallest positive number that, when added to ((double) 1.0), changes the value.
-	 * <p>It is a most curious omission that {@link Double} does not have this number.</p>
-	 */
-    final static double SMALLEST_NUMBER_ADDABLE_TO_1 = smallestNumberAddableToOne();
-
-    /** Allow just one bit of deviation to the low side. */
-    final static double ALLOWABLE_RANGE_FACTOR_LOW = 1.0 - 0.5 * SMALLEST_NUMBER_ADDABLE_TO_1;
-
-    /** Allow just one bit of deviation to the high side. */
-    final static double ALLOWABLE_RANGE_FACTOR_HIGH = 1.0 + SMALLEST_NUMBER_ADDABLE_TO_1;
 
 	@Parameters
 	public static List<Double[]> examplesToCalculateSQRTof() {
@@ -55,8 +43,8 @@ public class SqrtPrecisionTests {
 
 	@BeforeClass
 	public static void load() throws Exception {
-		// RT.loadResourceScript("chapter1/sqrt/ReallyGoodSQRT.clj");
-		// mySqrt = RT.var("chapter1.BonusMaterial", "mysqrt");
+		RT.loadResourceScript("chapter1/sqrt/ReallyGoodSQRT.clj");
+		mySqrt = RT.var("chapter1.BonusMaterial", "mysqrt");
 	}
 
 	@Before
@@ -67,22 +55,20 @@ public class SqrtPrecisionTests {
 	@Test
 	public void testPrecision() {
 		double square = sqrt * sqrt;
-		assertTrue("calculated sqrt value is too low", ALLOWABLE_RANGE_FACTOR_LOW * x <= square);
-		assertTrue("calculated sqrt value is too high", square <= ALLOWABLE_RANGE_FACTOR_HIGH * x);
-	}
 
-	private static double smallestNumberAddableToOne() {
-		double lower = 0.0;
-		double upper = 1.0;
-		double candidate = 1e-10;
-		final double one = 1.0;
-		do {
-			if(one < one + candidate)
-				upper = candidate;
-			else
-				lower = candidate;
-			candidate = (lower + upper) / 2;
-		} while(lower < candidate && candidate < upper);
-		return upper;
+		// Allow the square to be up to two steps remote of x:
+		double upperBound = Math.nextAfter(Math.nextAfter(x, Double.MAX_VALUE), Double.MAX_VALUE);
+		double lowerBound = Math.nextAfter(Math.nextAfter(x, 0), 0);
+
+//      As the derivative of x*x is 2*x, one cannot really hope
+//      that this comes out true:
+//		double upperBound = Math.nextAfter(x, Double.MAX_VALUE);
+//		double lowerBound = Math.nextAfter(x, 0);
+//      But it does in almost all cases (a mere 74 of 1239 fail).
+				
+		if( square < lowerBound)
+			fail("calculated sqrt value " + sqrt + " for " + x + " is too low, try " + Math.sqrt(x));				
+		else if(upperBound < square)
+			fail("calculated sqrt value " + sqrt + " for " + x + " is too high, try " + Math.sqrt(x));
 	}
 }
