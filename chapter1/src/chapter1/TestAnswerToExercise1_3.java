@@ -12,7 +12,6 @@ public class TestAnswerToExercise1_3 {
 	
 	@BeforeClass
 	public static void load() throws Exception {
-		System.err.println(Math.sqrt(Double.MAX_VALUE));
 		RT.loadResourceScript("chapter1/AnswerToExercise_1_3.clj");
 	}
 
