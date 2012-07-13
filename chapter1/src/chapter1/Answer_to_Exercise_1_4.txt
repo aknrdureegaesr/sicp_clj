@@ -1,2 +1,3 @@
-Je nach Wert von b
-wird eine anderer Funktion, nämlich + oder - eingesetzt.
+Depending on b,
+a different function is used, either + or - .
+Hey - welcome to functional programming: Functions _are_ first class citizens!

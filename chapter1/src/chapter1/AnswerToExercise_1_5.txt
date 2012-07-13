@@ -2,9 +2,8 @@ applicative-order:
 
 (test 0 (p))
 
-Versucht (p) zu evaluieren, was wieder auf (p) hinausläuft -
-Endlosschleife.
-
+Attempts to evaluate (p) first, which evaluates to another (p)
+so we get endless recursion.
 
 normal-order:
 
