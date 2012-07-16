@@ -73,14 +73,19 @@
 
 ;; I could have used the one from Math,
 ;; (defn power [x n] (Math/pow x n))
-;; but, for the fun of it, here is the pedestrian way:
+;; but, for the fun of it, here is the pedestrian way
+;; (for integral numbers n only):
 
-(defn power [x n]
-  (cond
-    (< n 0) (recur (/ 1.0 x) (- n))
-    (= n 0) 1.0
-    (= 1 (rem n 2)) (* x (power (* x x) (quot n 2)))
-    true (recur (* x x) (quot n 2))))
+(defn power
+  ; Return x**n:
+  ([x n] (power x n 1.0))
+  ; Return z * x**n:
+  ([x n z]
+    (cond
+      (< n 0) (recur (/ 1.0 x) (- n) z)
+      (= n 0) z
+      (= 1 (rem n 2)) (recur (* x x) (quot n 2) (* z x))
+      true (recur (* x x) (quot n 2) z))))
 
 ;; To find some approximate start value
 ;; that is higher than the true value,
