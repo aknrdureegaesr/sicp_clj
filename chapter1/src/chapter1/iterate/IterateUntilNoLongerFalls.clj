@@ -9,7 +9,7 @@
 
 ;; Little known fact:
 ;; Heron's formula has a globel minimum
-;; (among all positive numbers) at the sqrt's value.
+;; (among all positive numbers) at the sqrt value.
 ;; This can be easily checked with elementary calculus.
 ;; So, if one keeps re-applying Heron's formula,
 ;; the values will become lower and lower.
@@ -37,12 +37,12 @@
 ;; until the values no longer fall:
 
 (defn keep_improving_until_precision_is_reached
-  ([x approx better_approx]
+  ([x approx better_approx f_iter]
     (if (< better_approx approx)
-      (recur x better_approx (heron x better_approx))
+      (recur x better_approx (f_iter x better_approx) f_iter)
       better_approx))
-  ([x approx]
-    (keep_improving_until_precision_is_reached x approx (heron x approx))))
+  ([x approx f_iter]
+    (keep_improving_until_precision_is_reached x approx (f_iter x approx) f_iter)))
 
 ;; To make this work, one needs a start value
 ;; that is certainly higher than sqrt(x).
@@ -96,12 +96,31 @@
 ;; b) (more importantly here) make sure
 ;; the improvement is above the true value.
 (defn upper_start_value [x]
-  (heron x (power 1.4142 (Math/getExponent x))))
+  (heron x
+    (power
+      (keep_improving_until_precision_is_reached 2.0 1.415 heron)
+      (Math/getExponent x))))
 
 ;; Putting it all together:
-(defn mysqrt [x] (keep_improving_until_precision_is_reached x (upper_start_value x)))
+(defn my_sqrt [x] (keep_improving_until_precision_is_reached x (upper_start_value x) heron))
 
-; Alternatively, call the standard Java implementation
+;; To calculate the cube root,
+;; one may use Newton's formula for (defn cube [x] (* x (* x x))) .
+
+;; That boils down to
+(defn cube_root_iter [x y] (/ (+ (/ x (* y y)) y y) 3))
+
+;; 
+(defn upper_start_value_for_cube [x]
+   (cube_root_iter x 
+     (power
+       (keep_improving_until_precision_is_reached 2.0 1.3 cube_root_iter)
+       (Math/getExponent x))))
+
+(defn my_cube_root [x]
+  (keep_improving_until_precision_is_reached x (upper_start_value_for_cube x) cube_root_iter))
+       
+; Alternatively, one can call the standard Java implementation
 ; just to see the test works.
 ;
 ; Incidently, all calls take a total of 1.0 seconds on my machine.

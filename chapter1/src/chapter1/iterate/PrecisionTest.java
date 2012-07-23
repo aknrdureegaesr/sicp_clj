@@ -1,4 +1,4 @@
-package chapter1.sqrt;
+package chapter1.iterate;
 
 import static org.junit.Assert.fail;
 
@@ -20,7 +20,7 @@ import clojure.lang.Var;
  * with samples from the entire range of positive double precision numbers.
  */
 @RunWith(Parameterized.class)
-public class SqrtPrecisionTests {
+public class PrecisionTest {
 
 	@Parameters
 	public static List<Double[]> examplesToCalculateSQRTof() {
@@ -34,26 +34,34 @@ public class SqrtPrecisionTests {
 
 	final private double x;
 	private double sqrt;
+	private double cubeRoot;
 
-	public SqrtPrecisionTests(Double x) {
+	public PrecisionTest(Double x) {
 		this.x = x;		
 	}
 	
 	private static Var mySqrt;
+	private static Var myCubeRoot;
 
 	@BeforeClass
 	public static void load() throws Exception {
-		RT.loadResourceScript("chapter1/sqrt/ReallyGoodSQRT.clj");
-		mySqrt = RT.var("chapter1.BonusMaterial", "mysqrt");
+		RT.loadResourceScript("chapter1/iterate/IterateUntilNoLongerFalls.clj");
+		mySqrt = RT.var("chapter1.BonusMaterial", "my_sqrt");
+		myCubeRoot = RT.var("chapter1.BonusMaterial", "my_cube_root");
+		
 	}
 
 	@Before
 	public void calculate() {
-		this.sqrt = (Double) mySqrt.invoke(x); // Math.sqrt(x);
+		sqrt = (Double) mySqrt.invoke(x);
+		cubeRoot = (Double) myCubeRoot.invoke(x);
+		// While my implementation passes the precision test,
+		// this "official one" does not:
+		// cubeRoot = Math.pow(x, ((double) 1.0) / 3);
 	}
 
 	@Test
-	public void testPrecision() {
+	public void testPrecisionOfSquareRoot() {
 		double square = sqrt * sqrt;
 
 		// Allow the square to be up to two steps remote of x:
@@ -70,5 +78,19 @@ public class SqrtPrecisionTests {
 			fail("calculated sqrt value " + sqrt + " for " + x + " is too low, try " + Math.sqrt(x));				
 		else if(upperBound < square)
 			fail("calculated sqrt value " + sqrt + " for " + x + " is too high, try " + Math.sqrt(x));
+	}
+
+	@Test
+	public void testPrecisionOfCubeRoot() {
+		double cube = cubeRoot * cubeRoot * cubeRoot;
+
+		// Allow the cube to be up to a few steps remote of x:
+		double upperBound = Math.nextAfter(Math.nextAfter(Math.nextAfter(Math.nextAfter(Math.nextAfter(Math.nextAfter(x, Double.MAX_VALUE), Double.MAX_VALUE), Double.MAX_VALUE), Double.MAX_VALUE), Double.MAX_VALUE), Double.MAX_VALUE);
+		double lowerBound = Math.nextAfter(Math.nextAfter(Math.nextAfter(Math.nextAfter(Math.nextAfter(x, 0), 0), 0), 0), 0);
+				
+		if( cube < lowerBound)
+			fail("calculated cube root value " + cubeRoot + " for " + x + " is too low, try " + Math.pow(x, 1.0/3));				
+		else if(upperBound < cube)
+			fail("calculated cube root value " + cubeRoot + " for " + x + " is too high, try " + Math.pow(x, 1.0/3));
 	}
 }
