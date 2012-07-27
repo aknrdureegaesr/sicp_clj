@@ -2,6 +2,8 @@ package chapter1.iterate;
 
 import static org.junit.Assert.fail;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,9 +47,12 @@ public class PrecisionTest {
 
 	@BeforeClass
 	public static void load() throws Exception {
+		// long start = System.currentTimeMillis();
+		// clojure.lang.Compiler.loadFile("src/chapter1/iterate/IterateUntilNoLongerFalls.clj");
 		RT.loadResourceScript("chapter1/iterate/IterateUntilNoLongerFalls.clj");
 		mySqrt = RT.var("chapter1.BonusMaterial", "my_sqrt");
 		myCubeRoot = RT.var("chapter1.BonusMaterial", "my_cube_root");
+		// System.err.println("Startup " + (System.currentTimeMillis() - start) * 1e-3 + "s");
 		
 	}
 
