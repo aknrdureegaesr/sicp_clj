@@ -1,0 +1,4 @@
+The first isn't tail-recursive, so needs stack space for the
+unfinished open operation. The second is tail-recursive.
+
+Didn't bother to write down the details.

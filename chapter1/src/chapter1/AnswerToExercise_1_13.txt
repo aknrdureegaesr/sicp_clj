@@ -1,0 +1,58 @@
+I won't actually do that exercise,
+as I have studied those sequences quite well years ago.
+
+Indeed, I found one can use Fibonacci-like sequences
+as yet another way of calculating sqrt(A), for positive numbers A.
+
+Here are the details:
+
+If you have any positive number A and you would like to calculate sqrt(A),
+you start with any positive number G that is a guess for sqrt(A).
+(In theory, it need not even be close, though in practice, the closer,
+the better.)
+
+Background:> Now consider the polynomal
+Background:> 
+Background:> p(x) = (x - G - sqrt(A)) * (x - G + sqrt(A))
+Background:>      = x² - 2 G x + G² - A
+Background:> 
+Background:> It has the roots x_0 = G + sqrt(A) and x_1 = G - sqrt(A).
+Background:> 
+Background:> In other words, those two numbers solve
+Background:> 
+Background:>    x² = 2 G  + A - G²
+Background:>
+
+Now consider sequences f_n of positive numbers 
+such that
+
+   f_(n+1) = 2 * G * f_n + (A - G²) * f_(n-1)
+
+Background:> The sequence X1 given by 1, x_1, x_1², x_1³, ... is one such.
+Background:> As is the sequence X2 given by 1, x_2, x_2², x_2³, ... .
+
+Out of these, we will consider the sequence Y that starts
+with 1, 1.
+
+Then Y_(n+1) / Y_n will converge to G + sqrt(A)
+unless you happened to precisely choose G = sqrt(A) + 1,
+in which case the sequence will come out constant 1.
+
+Those fractions give you approximations of G + sqrt(A),
+and hence, by subtracting G, of sqrt(A).
+
+Example:
+
+A = 10, G = 3,
+
+f_(n+1) = 6 * f_n + f_(n-1)
+
+The sequence is
+
+1, 1, 7, 43, 265, 1633
+
+1633 / 265 - 3 = 838 / 265
+Test: (838 / 265)² = 10 - 6 / 70225
+
+In another variation of the sqrt- theme, you could use an approximation
+produced by one Fibonacci-like sequence as the G for the next one.

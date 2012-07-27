@@ -1,0 +1,29 @@
+I'm not doing this exercise.
+
+Instead, I have done some experiments with yet another strategy
+in the iterate directory.
+
+That strategy is:
+
+* Do some mathematical analysis as to the behaviour of the sequence of guesses.
+
+* Analysis result:
+  In the cases of interest here, the next guess will always be lower
+  than the previous one. They are all larger than the number they
+  aim to approximate, though the difference decreases.
+
+* In finite precision arithmetic, no sequence of numbers can fall forever.
+
+* When the limit of precision is reached, subsequent guesses
+  will remain constant, or may even rise ever so slightly.
+
+* Monitor the behavior of the guesses sequence and stop producing
+  further guesses when the guesses no longer fall.
+
+This is guaranteed to produce the maximum precision available.
+
+What precision could be obtained has been tested empirically.
+
+In the cube root case, the precision was slightly better than
+that obtained from Math.pow
+  

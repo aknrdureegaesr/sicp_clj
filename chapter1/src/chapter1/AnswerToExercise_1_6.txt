@@ -1,0 +1,4 @@
+new-if isn't a special form,
+so its arguments are both evaluated before it is called.
+
+So Alyssa will see an infinite recursion.
