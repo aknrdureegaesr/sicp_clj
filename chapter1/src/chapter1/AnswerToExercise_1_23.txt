@@ -1,0 +1,17 @@
+I didn't actually do this exercise,
+but I would expect the advantage of fewer divisions
+to be eaten up by the added complexity of the test,
+plus the call of the next function.
+
+I think it entirely feasible that the "improved" version
+might end up running slower.
+
+It might be mildly interesting to see whether lazy sequences
+rescue this situation.
+
+Maybe I end up missing some good fun here,
+but as I write this, I decide to be not sufficiently interested
+in such low-level optimization stuff to actually do it.
+
+(I speculate the point of that exercise may be
+to point out the dangers of such low-level optimization stuff.)
