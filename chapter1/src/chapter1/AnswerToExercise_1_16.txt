@@ -1,0 +1,4 @@
+I have done that exercise a while ago,
+see iterate/IterateUntilNoLongerFalls.clj, "power" .
+
+Only I called it "z", not "a".

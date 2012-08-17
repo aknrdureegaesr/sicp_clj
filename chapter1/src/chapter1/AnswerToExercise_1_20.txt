@@ -1,0 +1,37 @@
+Doing this normal order forces the evaluation of (remainder a b)
+at "if" time, but the recursion
+
+(gcd 206 40) →
+(gcd 40 (remainder 206 40)) →
+now the calculation of (remainder 206 40) is forced by the if, yielding 6,
+also, this is the first remainder calculation
+but then we get
+(gcd (remainder 206 40) (remainder 40 (remainder 206 40))
+
+Now, the if again forces the calculation (remainder 40 (remainder 206 40))
+yielding 4, this is remainder calculations 2 and 3
+so we get 
+(gcd (remainder 40 (remainder 206 40)) 
+     (remainder (remainder 206 40)) (remainder 40 (remainder 206 40))))
+
+This "if" again forces the calculation, yielding 2,
+and remainder calculations 4 through 7.
+
+So, in the n-th step, the if alone forces the number of remainder calculations
+from the super-Fibonacci-sequence
+0 1 2 4 7 12 20 ...
+where each new number is the sum of the previous two plus one.
+
+The next if forces another 7 remainder calculation, so we have a total of 14 now
+and finally sees the 0.
+So now the four remainder calculations the previous if already saw
+are done again, yielding a total of 18 calculations.
+
+Normally (I mean, applicative-ly):
+(gcd 206 40)
+(gcd 40 6) (1 calculation)
+(gcd  6 4) (2 calculations)
+(gcd  4 2) (3 calculations)
+(gcd  2 0) (still 3 calculations)
+
+So ooops I messed up the exercise.
