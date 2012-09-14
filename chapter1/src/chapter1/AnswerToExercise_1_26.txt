@@ -1,0 +1,4 @@
+The name of the helper is a giveaway:
+
+The recursive calls are called repeatedly, leading to a big call tree.
+No multiplication is ever saved, one could have used a simple loop instead.

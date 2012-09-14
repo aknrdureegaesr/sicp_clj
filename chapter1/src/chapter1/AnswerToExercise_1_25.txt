@@ -1,0 +1,14 @@
+Fine thinking - works if programmer laziness is to be valued
+and infinite precision integer multiplication is at hand.
+
+Actually using an infinite precision integer multiplication
+would counteract the performance boost we want to see from that test.
+
+Typical finite precision math (such as Java's long)
+wraps around at 2^something silently, without any indication
+that anything is wrong. Which it is.
+
+The test will work fine for very small numbers,
+as long as the power still fits into Java's long
+(or into whatever finite precision type is used),
+but produce garbage for bigger numbers.
