@@ -41,9 +41,8 @@
 ;;          [10000019 -4.482590785408046]  ; In this middle range,
 ;;         [100000007 -3.7813377446418728] ; from one line to the next pretty much the same
 ;;        [1000000007 -4.093334649548482]  ; amount of time is taken - across 4 orders of magnitude!
-;;                                         ; I think I witness Java's JIT-compiler at work here.
+;;       [10000000019 -4.479374922565967]  ; I think I witness Java's JIT-compiler at work here.
 ;;
-;;       [10000000019 -4.479374922565967] 
 ;;      [100000000003 -3.30821136617993]    ; In this range,
 ;;     [1000000000039 -2.380850971876542]   ; performance again behaves mostly as expected.
 ;;    [10000000000037 -1.4553412407029054]  ; Looking more closely, things become slightly slower

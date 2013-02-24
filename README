@@ -1,2 +1,19 @@
-[Structure and Interpretation of Computer Programs](http://mitpress.mit.edu/sicp/)
-exercises in Clojure
+Some of the [Structure and Interpretation of
+Computer Programs](http://mitpress.mit.edu/sicp/)
+exercises in Clojure.
+
+This is not a particular efficient way to learn
+Clojure.  You can give it a try if you want to,
+but don't say I recommended it.
+
+I did this for a while, until something even more
+interesting demanded my attention.  Wasn't very
+long - I never made it past chapter 1.
+
+I don't really think there is any material
+available here that is all that usefull or
+interesting for anyone.  The time measurement
+results in
+[AnswerToExercise_1_22.clj](chapter1/src/chapter1/AnswerToExercise_1_22.clj)
+may be an exception, persumably showing the Java
+JIT in action.
